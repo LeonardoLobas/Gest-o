@@ -1,49 +1,44 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+
+interface MenuItem {
+    path: string;
+    label: string;
+}
+
+const menuItems: MenuItem[] = [
+    { path: "/Home", label: "Home" },
+    { path: "/CadastroCliente", label: "Cadastro clientes" },
+    { path: "/Vendas", label: "Vendas" },
+    { path: "/Despesas", label: "Despesas" },
+];
 
 const Header = () => {
+    const location = useLocation();
     return (
         <header className="flex h-24 w-full bg-black  px-8">
             <nav className="flex  w-[100%] items-center justify-center pl-36 ">
                 <ul className="flex gap-10 text-lg text-gray-200">
-                    <li className="relative group">
-                        <a
-                            href="/visao-geral"
-                            className="relative inline-block py-2"
-                        >
-                            Visão geral
-                        </a>
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-200 transition-all duration-300 ease-in-out group-hover:w-full"></span>
-                    </li>
-
-                    <li className="relative group">
-                        <Link
-                            to="/CadastroCliente"
-                            className="relative inline-block py-2"
-                        >
-                            Cadastros clientes
-                        </Link>
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-200 transition-all duration-300 ease-in-out group-hover:w-full"></span>
-                    </li>
-
-                    <li className="relative group">
-                        <a
-                            href="/vendas"
-                            className="relative inline-block py-2"
-                        >
-                            Vendas
-                        </a>
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-200 transition-all duration-300 ease-in-out group-hover:w-full"></span>
-                    </li>
-
-                    <li className="relative group">
-                        <a
-                            href="/despesas"
-                            className="relative inline-block py-2"
-                        >
-                            Despesas
-                        </a>
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-200 transition-all duration-300 ease-in-out group-hover:w-full"></span>
-                    </li>
+                    {menuItems.map((item) => {
+                        const isActive = location.pathname === item.path;
+                        return (
+                            <li key={item.path} className="relative group">
+                                {" "}
+                                <Link
+                                    to={item.path}
+                                    className="relative inline-block py-2"
+                                >
+                                    {item.label}
+                                </Link>
+                                <span
+                                    className={`absolute bottom-0 left-0 h-0.5 bg-gray-200 transition-all duration-300 ease-in-out ${
+                                        isActive
+                                            ? "w-full"
+                                            : "w-0 group-hover:w-full"
+                                    }`}
+                                ></span>
+                            </li>
+                        );
+                    })}
                 </ul>
             </nav>
             <div className="flex  justify-end content-end">

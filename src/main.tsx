@@ -12,7 +12,7 @@ ReactDOM.createRoot(root).render(
     <BrowserRouter>
         <Header />
         <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/Home" element={<Home />} />
             <Route path="/CadastroCliente" element={<CadastroClientes />} />
         </Routes>
         <Footer />
