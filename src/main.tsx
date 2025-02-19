@@ -10,11 +10,14 @@ const root = document.getElementById("root") as HTMLElement;
 
 ReactDOM.createRoot(root).render(
     <BrowserRouter>
-        <Header />
-        <Routes>
-            <Route path="/Home" element={<Home />} />
-            <Route path="/CadastroCliente" element={<CadastroClientes />} />
-        </Routes>
-        <Footer />
+        <main className="min-h-screen flex flex-col">
+            {" "}
+            <Header />
+            <Routes>
+                <Route path="/Home" element={<Home />} />
+                <Route path="/CadastroCliente" element={<CadastroClientes />} />
+            </Routes>
+            <Footer />
+        </main>
     </BrowserRouter>
 );
