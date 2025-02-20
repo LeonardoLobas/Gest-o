@@ -1,7 +1,21 @@
 .rdp-root {
-    --rdp-accent-color: indigo !important;
-    --rdp-today-color: yellow;
-    --rdp-day_button-border-radius: 10px
+    --rdp-accent-color: #D4AF37;
+    --rdp-today-color: #D4AF37;
+    --rdp-day_button-border-radius: 10px;
+    --rdp-day-width: 100%
     /* Adicione mais variáveis conforme necessário */
   }
+.rdp-footer {
+  padding: 11px; /* Adiciona espaço interno */
   
+}
+.rdp-caption_label {
+  padding: 11px
+}
+.rdp-month_grid {
+
+}
+
+
+
+
