@@ -20,13 +20,17 @@ const Home = () => {
                 />
             </div>
 
-            <div className="bg-black text-white grid grid-cols-3 place-items-center rounded-2xl overflow-hidden">
-                <div className="col-span-1 h-full w-full place-items-center text-lg tracking-[0.1rem] font-bold bg-amber-900">
+            <div className="bg-black text-white grid grid-cols-3 place-items-center text-lg tracking-[0.1rem] font-bold rounded-2xl overflow-hidden">
+                <div className="col-span-1 h-full w-full place-items-center  bg-amber-900">
                     {" "}
                     <h1 className="mt-2">Minha agenda</h1>
                 </div>
-                <div className="col-span-1 h-full w-full bg-amber-400"></div>
-                <div className="col-span-1 h-full w-full bg-amber-600"></div>
+                <div className="col-span-1 h-full place-items-center w-full bg-amber-400">
+                    <h1 className="mt-2">Vendas</h1>
+                </div>
+                <div className="col-span-1 h-full place-items-center w-full bg-amber-600">
+                    <h1 className="mt-2">Cadastros</h1>
+                </div>
             </div>
         </div>
     );
