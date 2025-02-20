@@ -1,6 +1,6 @@
 import "./index.css";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import Home from "./Home.tsx";
 import Header from "./Components/header.tsx";
 import Footer from "./Components/Footer.tsx";
@@ -14,6 +14,7 @@ ReactDOM.createRoot(root).render(
             {" "}
             <Header />
             <Routes>
+                <Route path="/" element={<Navigate to={"/Home"} />} />
                 <Route path="/Home" element={<Home />} />
                 <Route path="/CadastroCliente" element={<CadastroClientes />} />
             </Routes>
