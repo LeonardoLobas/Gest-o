@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 
 interface MenuItem {
     path: string;
@@ -15,9 +16,14 @@ const menuItems: MenuItem[] = [
 const Header = () => {
     const location = useLocation();
     return (
-        <header className="flex h-24 w-full bg-black  px-8">
+        <motion.header
+            initial={{ y: -100, opacity: 0 }} // Começa fora da tela, acima
+            animate={{ y: 0, opacity: 1 }} // Desce suavemente
+            transition={{ duration: 0.8, ease: "easeOut" }} // Tempo da animação
+            className="flex h-24 w-full bg-black  px-8"
+        >
             <nav className="flex  w-[100%] items-center justify-center pl-36 ">
-                <ul className="flex gap-10 text-lg text-gray-200">
+                <ul className="flex gap-10 text-lg text-amber-50">
                     {menuItems.map((item) => {
                         const isActive = location.pathname === item.path;
                         return (
@@ -30,7 +36,7 @@ const Header = () => {
                                     {item.label}
                                 </Link>
                                 <span
-                                    className={`absolute bottom-0 left-0 h-0.5 bg-gray-200 transition-all duration-300 ease-in-out ${
+                                    className={`absolute bottom-0 left-0 h-0.5 bg-black transition-all duration-300 ease-in-out ${
                                         isActive
                                             ? "w-full"
                                             : "w-0 group-hover:w-full"
@@ -48,7 +54,7 @@ const Header = () => {
                         <input
                             type="search"
                             id="default-search"
-                            className="block w-60 p-3 pl-5 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-100"
+                            className="block w-60 p-3 pl-5 text-sm text-gray-900 border border-black rounded-lg bg-gray-100"
                             placeholder="Clientes..."
                             required
                         />
@@ -75,7 +81,7 @@ const Header = () => {
                     </div>
                 </form>
             </div>
-        </header>
+        </motion.header>
     );
 };
 
