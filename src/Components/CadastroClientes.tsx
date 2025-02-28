@@ -3,14 +3,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import axios from "axios";
 import Input from "./ui/Input";
+import { useEffect } from "react";
 
-const validationCEP = async (cep: string) => {
+const searchCEP = async (cep: string) => {
     try {
         const response = await axios.get(
             `https://brasilapi.com.br/api/cep/v2/${cep}`
         );
-        console.log(response);
-        return response.data ? true : false;
+        return response.data;
     } catch {
         return false;
     }
@@ -23,16 +23,14 @@ const validationCPF = (cpf: string) => {
 
 const registrationScheme = z.object({
     nome: z.string().min(8, "O nome deve ter pelos menos 8 caracteres"),
-    telefone: z.string().min(10, "telefone inválido"),
+    telefone: z.string().min(10, "Telefone inválido"),
     cpf: z.string().refine(validationCPF, {
         message: "CPF inválido. Use o formato xxx.xxx.xxx-xx",
     }),
-    cep: z
-        .string()
-        .min(8, "CEP deve ter 8 caracteres")
-        .refine(async (cep) => await validationCEP(cep), {
-            message: "CEP inválido",
-        }),
+    cep: z.string().regex(/^\d{5}-\d{3}$/, {
+        message: "O CEP deve estar no formato XXXXX-XXX",
+    }),
+
     endereco: z.object({
         rua: z.string().min(5, "A rua deve ter pelo menos 5 caracteres"),
         numero: z.string().min(1, "O número é obrigatório"),
@@ -48,17 +46,28 @@ const CadastroClientes = () => {
     const {
         register,
         handleSubmit,
+        reset,
+        watch,
         formState: { errors },
     } = useForm<FormData>({
         resolver: zodResolver(registrationScheme),
     });
 
+    const cep = watch("cep");
+    useEffect(() => {
+        if (cep?.length === 8) {
+            searchCEP(cep).then((res) => {
+                console.log(res);
+            });
+        }
+    }, [reset, cep]);
+
     const submit = (data: FormData) => {
-        alert(data);
+        alert(JSON.stringify(data, null, 2));
     };
 
     return (
-        <div className="grid grid-cols-2 gap-4 p-8 bg-amber-950 flex-1 ">
+        <div className="grid grid-cols-2 gap-4 p-8 bg-amber-950 flex-1">
             <div className="bg-amber-800">AQUI E A PAGINA DE CADASTROS</div>
             <form onSubmit={handleSubmit(submit)} className="bg-amber-800">
                 <Input
@@ -93,9 +102,10 @@ const CadastroClientes = () => {
                     register={register}
                     error={errors.cep}
                 />
+
                 <Input
                     label="Rua"
-                    name="endereco"
+                    name="endereco.rua"
                     type="text"
                     placeholder="Digite sua rua"
                     register={register}

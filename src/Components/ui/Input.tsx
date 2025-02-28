@@ -1,25 +1,28 @@
 import React from "react";
-import { UseFormRegister, FieldError } from "react-hook-form";
-import { FormData } from "../CadastroClientes";
+import {
+    UseFormRegister,
+    FieldError,
+    FieldValues,
+    Path,
+} from "react-hook-form";
 
-// Tipo de propriedades do input
-interface InputProps {
+interface InputProps<T extends FieldValues> {
     label: string;
-    name: keyof FormData | `endereco.${keyof FormData["endereco"]}`;
+    name: Path<T>;
     type: string;
     placeholder: string;
-    register: UseFormRegister<FormData>;
+    register: UseFormRegister<T>;
     error?: FieldError;
 }
 
-const Input: React.FC<InputProps> = ({
+const Input = <T extends FieldValues>({
     label,
     name,
     type,
     placeholder,
     register,
     error,
-}) => {
+}: InputProps<T>) => {
     return (
         <div className="mb-4">
             <label
