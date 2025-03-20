@@ -60,13 +60,10 @@ const CadastroClientes = () => {
     useEffect(() => {
         if (cep?.length >= 8) {
             searchCEP(cep).then((res) => {
-                reset(
-                    (prev) => ({
-                        ...prev,
-                        endereco: { ...prev.endereco, cidade: res.city },
-                    }),
-                    { keepErrors: true, keepDirtyValues: true }
-                );
+                reset((prev) => ({
+                    ...prev,
+                    endereco: { ...prev.endereco, cidade: res.city },
+                }));
             });
         }
     }, [cep, reset]);
