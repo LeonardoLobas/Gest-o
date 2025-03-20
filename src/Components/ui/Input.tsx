@@ -24,10 +24,10 @@ const Input = <T extends FieldValues>({
     error,
 }: InputProps<T>) => {
     return (
-        <div className="mb-4">
+        <div className=" mb-4 w-full items-center content-center p-3">
             <label
                 htmlFor={name}
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-amber-50"
             >
                 {label}
             </label>

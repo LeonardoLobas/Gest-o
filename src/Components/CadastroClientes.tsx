@@ -5,17 +5,6 @@ import axios from "axios";
 import Input from "./ui/Input";
 import { useEffect } from "react";
 
-const searchCEP = async (cep: string) => {
-    try {
-        const response = await axios.get(
-            `https://brasilapi.com.br/api/cep/v2/${cep}`
-        );
-        return response.data;
-    } catch {
-        return false;
-    }
-};
-
 const validationCPF = (cpf: string) => {
     const regexCpf = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
     return regexCpf.test(cpf);
@@ -40,36 +29,62 @@ const registrationScheme = z.object({
     }),
 });
 
+const searchCEP = async (cep: string) => {
+    try {
+        const response = await axios.get(
+            `https://brasilapi.com.br/api/cep/v2/${cep}`
+        );
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error("Erro ao buscar o CEP:", error);
+        return null;
+    }
+};
+
 export type FormData = z.infer<typeof registrationScheme>;
 
 const CadastroClientes = () => {
     const {
         register,
         handleSubmit,
+        formState: { errors },
         reset,
         watch,
-        formState: { errors },
     } = useForm<FormData>({
         resolver: zodResolver(registrationScheme),
     });
 
     const cep = watch("cep");
+
     useEffect(() => {
-        if (cep?.length === 8) {
+        if (cep?.length >= 8) {
             searchCEP(cep).then((res) => {
-                console.log(res);
+                reset(
+                    (prev) => ({
+                        ...prev,
+                        endereco: { ...prev.endereco, cidade: res.city },
+                    }),
+                    { keepErrors: true, keepDirtyValues: true }
+                );
             });
         }
-    }, [reset, cep]);
+    }, [cep, reset]);
 
     const submit = (data: FormData) => {
+        console.log("oi");
         alert(JSON.stringify(data, null, 2));
     };
 
     return (
-        <div className="grid grid-cols-2 gap-4 p-8 bg-amber-950 flex-1">
-            <div className="bg-amber-800">AQUI E A PAGINA DE CADASTROS</div>
-            <form onSubmit={handleSubmit(submit)} className="bg-amber-800">
+        <div className="grid grid-cols-2 gap-4 p-8 bg-[#FFFDF3] flex-1">
+            <div className="bg-amber-800 rounded-2xl">
+                AQUI E A PAGINA DE CADASTROS
+            </div>
+            <form
+                onSubmit={handleSubmit(submit, (errors) => console.log(errors))}
+                className="bg-amber-800 rounded-2xl place-items-center  grid grid-cols-2"
+            >
                 <Input
                     label="Nome"
                     name="nome"
@@ -144,10 +159,10 @@ const CadastroClientes = () => {
                     error={errors.endereco?.estado}
                 />
                 <button
-                    className="p-2 bg-blue-500 cursor-pointer text-white rounded"
+                    className="bg-blue-500   w-40 h-10 rounded-md p-2 cursor-pointer text-white"
                     type="submit"
                 >
-                    Enviar
+                    Cadastrar
                 </button>
             </form>
         </div>
