@@ -109,12 +109,12 @@ const CadastroClientes = () => {
 
     return (
         <div className="grid grid-cols-2 gap-4 p-8 bg-[#FFFDF3] flex-1">
-            <div className="bg-amber-800 rounded-2xl">
+            <div className="bg-[#1A1A1A] rounded-2xl">
                 AQUI E A PAGINA DE CADASTROS
             </div>
             <form
                 onSubmit={handleSubmit(submit, (errors) => console.log(errors))}
-                className="bg-amber-800 rounded-2xl place-items-center  grid grid-cols-2"
+                className="bg-[#1A1A1A] rounded-2xl place-items-center  grid grid-cols-2"
             >
                 {inputs.map((input) => (
                     <Input

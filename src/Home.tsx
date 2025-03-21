@@ -10,7 +10,7 @@ const Home = () => {
     const [isVisible, setIsVisible] = useState(false);
 
     return (
-        <div className="flex-1 bg-[#FFFDF3]h-full p-8 grid grid-cols-[25%_75%] gap-4 ">
+        <div className="flex-1 bg-[#E0E0E0] h-full p-8 grid grid-cols-[25%_75%] gap-4 ">
             <div className="bg-black  text-amber-50 grid place-items-center rounded-2xl ">
                 <DayPicker
                     mode="single"

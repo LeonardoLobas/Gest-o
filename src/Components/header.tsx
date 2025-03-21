@@ -20,7 +20,7 @@ const Header = () => {
             initial={{ y: -100, opacity: 1 }} // Começa fora da tela, acima
             animate={{ y: 0, opacity: 1 }} // Desce suavemente
             transition={{ duration: 1, ease: "easeOut" }} // Tempo da animação
-            className="flex h-24 w-full bg-black  px-8"
+            className="flex h-24 w-full bg-[#1A1A1A]  px-8"
         >
             <nav className="flex  w-[100%] items-center justify-center pl-36 ">
                 <ul className="flex gap-10 text-lg text-amber-50">
