@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { Path, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import axios from "axios";
@@ -65,6 +65,25 @@ const CadastroClientes = () => {
         resolver: zodResolver(registrationScheme),
     });
 
+    const inputs: { label: string; name: Path<FormData>; type: string }[] = [
+        { label: "Nome", name: "nome", type: "text" },
+        { label: "Telefone", name: "telefone", type: "text" },
+        { label: "CPF", name: "cpf", type: "text" },
+        { label: "CEP", name: "cep", type: "text" },
+    ];
+
+    const enderecoInputs: {
+        label: string;
+        name: Path<FormData>;
+        type: string;
+    }[] = [
+        { label: "Rua", name: "endereco.rua", type: "text" },
+        { label: "Número", name: "endereco.numero", type: "text" },
+        { label: "Bairro", name: "endereco.bairro", type: "text" },
+        { label: "Cidade", name: "endereco.cidade", type: "text" },
+        { label: "Estado", name: "endereco.estado", type: "text" },
+    ];
+
     const cep = watch("cep");
 
     useEffect(() => {
@@ -97,79 +116,36 @@ const CadastroClientes = () => {
                 onSubmit={handleSubmit(submit, (errors) => console.log(errors))}
                 className="bg-amber-800 rounded-2xl place-items-center  grid grid-cols-2"
             >
-                <Input
-                    label="Nome"
-                    name="nome"
-                    type="text"
-                    placeholder="Digite seu nome"
-                    register={register}
-                    error={errors.nome}
-                />
-                <Input
-                    label="Telefone"
-                    name="telefone"
-                    type="text"
-                    placeholder="Digite seu telefone"
-                    register={register}
-                    error={errors.telefone}
-                />
-                <Input
-                    label="CPF"
-                    name="cpf"
-                    type="text"
-                    placeholder="Digite seu CPF"
-                    register={register}
-                    error={errors.cpf}
-                />
-                <Input
-                    label="CEP"
-                    name="cep"
-                    type="text"
-                    placeholder="Digite seu CEP"
-                    register={register}
-                    error={errors.cep}
-                />
+                {inputs.map((input) => (
+                    <Input
+                        key={input.name}
+                        label={input.label}
+                        name={input.name}
+                        type={input.type}
+                        placeholder={`Digite seu ${input.label.toLowerCase()}`}
+                        register={register}
+                        error={errors[input.name as keyof FormData]}
+                    />
+                ))}
 
-                <Input
-                    label="Rua"
-                    name="endereco.rua"
-                    type="text"
-                    placeholder="Digite sua rua"
-                    register={register}
-                    error={errors.endereco?.rua}
-                />
-                <Input
-                    label="Número"
-                    name="endereco.numero"
-                    type="text"
-                    placeholder="Digite o número"
-                    register={register}
-                    error={errors.endereco?.numero}
-                />
-                <Input
-                    label="Bairro"
-                    name="endereco.bairro"
-                    type="text"
-                    placeholder="Digite seu bairro"
-                    register={register}
-                    error={errors.endereco?.bairro}
-                />
-                <Input
-                    label="Cidade"
-                    name="endereco.cidade"
-                    type="text"
-                    placeholder="Digite sua cidade"
-                    register={register}
-                    error={errors.endereco?.cidade}
-                />
-                <Input
-                    label="Estado"
-                    name="endereco.estado"
-                    type="text"
-                    placeholder="Digite seu estado"
-                    register={register}
-                    error={errors.endereco?.estado}
-                />
+                {enderecoInputs.map((input) => (
+                    <Input
+                        key={input.name}
+                        label={input.label}
+                        name={input.name}
+                        type={input.type}
+                        placeholder={`Digite ${input.label.toLowerCase()}`}
+                        register={register}
+                        error={
+                            errors.endereco?.[
+                                input.name.split(
+                                    "."
+                                )[1] as keyof FormData["endereco"]
+                            ]
+                        }
+                    />
+                ))}
+
                 <button
                     className="bg-blue-500   w-40 h-10 rounded-md p-2 cursor-pointer text-white"
                     type="submit"

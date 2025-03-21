@@ -4,6 +4,8 @@ import {
     FieldError,
     FieldValues,
     Path,
+    FieldErrorsImpl,
+    Merge,
 } from "react-hook-form";
 
 interface InputProps<T extends FieldValues> {
@@ -12,7 +14,7 @@ interface InputProps<T extends FieldValues> {
     type: string;
     placeholder: string;
     register: UseFormRegister<T>;
-    error?: FieldError;
+    error?: FieldError | Merge<FieldError, FieldErrorsImpl<T>>;
 }
 
 const Input = <T extends FieldValues>({
@@ -39,7 +41,9 @@ const Input = <T extends FieldValues>({
                 className="mt-1 p-2 border border-gray-300 rounded-md w-full"
             />
             <div className="h-4">
-                <p className="text-red-500 text-sm mt-1">{error?.message}</p>
+                <p className="text-red-500 text-sm mt-1">
+                    {error ? String(error.message) : ""}
+                </p>
             </div>
         </div>
     );
