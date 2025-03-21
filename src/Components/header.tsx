@@ -17,9 +17,9 @@ const Header = () => {
     const location = useLocation();
     return (
         <motion.header
-            initial={{ y: -100, opacity: 0 }} // Começa fora da tela, acima
+            initial={{ y: -100, opacity: 1 }} // Começa fora da tela, acima
             animate={{ y: 0, opacity: 1 }} // Desce suavemente
-            transition={{ duration: 0.8, ease: "easeOut" }} // Tempo da animação
+            transition={{ duration: 1, ease: "easeOut" }} // Tempo da animação
             className="flex h-24 w-full bg-black  px-8"
         >
             <nav className="flex  w-[100%] items-center justify-center pl-36 ">

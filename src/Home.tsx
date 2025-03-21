@@ -26,23 +26,7 @@ const Home = () => {
 
             <div className="bg-black text-amber-50 grid grid-cols-3 place-items-center text-lg tracking-[0.1rem] font-bold rounded-2xl overflow-hidden">
                 <motion.div className="col-span-1  border-[#373739]  h-full place-items-center w-full bg-black ">
-                    <motion.h1
-                        className="mt-2"
-                        initial={{
-                            borderTopWidth: 0,
-                            borderBottomWidth: 0,
-                            y: -100,
-                        }}
-                        animate={{
-                            y: 0,
-                        }}
-                        transition={{
-                            duration: 0.8,
-                            ease: "easeOut",
-                        }}
-                    >
-                        Minha Agenda
-                    </motion.h1>
+                    <motion.h1 className="mt-2">Minha Agenda</motion.h1>
                     <AnimatePresence mode="popLayout" initial={false}>
                         {isVisible ? (
                             <motion.div
@@ -72,42 +56,10 @@ const Home = () => {
                     </AnimatePresence>
                 </motion.div>
                 <motion.div className="col-span-1 border-l-4 border-r-4 border-[#373739] h-full place-items-center w-full bg-black relative">
-                    <motion.h1
-                        className="mt-2"
-                        initial={{
-                            borderTopWidth: 0,
-                            borderBottomWidth: 0,
-                            y: -100,
-                        }}
-                        animate={{
-                            y: 0,
-                        }}
-                        transition={{
-                            duration: 0.8,
-                            ease: "easeOut",
-                        }}
-                    >
-                        Vendas
-                    </motion.h1>
+                    <motion.h1 className="mt-2">Vendas</motion.h1>
                 </motion.div>
                 <motion.div className="col-span-1  border-[#373739] h-full place-items-center w-full bg-black relative">
-                    <motion.h1
-                        className="mt-2"
-                        initial={{
-                            borderTopWidth: 0,
-                            borderBottomWidth: 0,
-                            y: -100,
-                        }}
-                        animate={{
-                            y: 0,
-                        }}
-                        transition={{
-                            duration: 0.8,
-                            ease: "easeOut",
-                        }}
-                    >
-                        Cadastros Clientes
-                    </motion.h1>
+                    <motion.h1 className="mt-2">Cadastros Clientes</motion.h1>
                 </motion.div>
             </div>
         </div>
