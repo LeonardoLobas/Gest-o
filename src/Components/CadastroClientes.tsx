@@ -10,11 +10,21 @@ const validationCPF = (cpf: string) => {
     return regexCpf.test(cpf);
 };
 
+const validationNumber = (number: string) => {
+    const regexNumber = /^\(\d{2}\) \d{4,5}-\d{4}$/;
+    return regexNumber.test(number);
+};
+
 const registrationScheme = z.object({
     nome: z.string().min(8, "O nome deve ter pelos menos 8 caracteres"),
-    telefone: z.string().min(10, "Telefone inválido"),
+    telefone: z
+        .string()
+        .refine(
+            validationNumber,
+            "Telefone inválido, use o formato (XX) 9XXXX-XXXX"
+        ),
     cpf: z.string().refine(validationCPF, {
-        message: "CPF inválido. Use o formato xxx.xxx.xxx-xx",
+        message: "CPF inválido. Use o formato 000.000.000-00",
     }),
     cep: z.string().regex(/^\d{5}-\d{3}$/, {
         message: "O CEP deve estar no formato XXXXX-XXX",
