@@ -24,7 +24,7 @@ const Input = <T extends FieldValues>({
     error,
 }: InputProps<T>) => {
     return (
-        <div className=" mb-4 w-full items-center content-center p-3">
+        <div className="mb w-full items-center p-3">
             <label
                 htmlFor={name}
                 className="block text-sm font-medium text-amber-50"
@@ -38,9 +38,9 @@ const Input = <T extends FieldValues>({
                 placeholder={placeholder}
                 className="mt-1 p-2 border border-gray-300 rounded-md w-full"
             />
-            {error && (
-                <span className="text-red-500 text-sm">{error.message}</span>
-            )}
+            <div className="h-4">
+                <p className="text-red-500 text-sm mt-1">{error?.message}</p>
+            </div>
         </div>
     );
 };

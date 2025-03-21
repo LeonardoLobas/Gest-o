@@ -59,17 +59,22 @@ const CadastroClientes = () => {
 
     useEffect(() => {
         if (cep?.length >= 8) {
-            searchCEP(cep).then((res) => {
+            searchCEP(cep).then((info) => {
                 reset((prev) => ({
                     ...prev,
-                    endereco: { ...prev.endereco, cidade: res.city },
+                    endereco: {
+                        ...prev.endereco,
+                        cidade: info.city,
+                        rua: info.street,
+                        bairro: info.neighborhood,
+                        estado: info.state,
+                    },
                 }));
             });
         }
     }, [cep, reset]);
 
     const submit = (data: FormData) => {
-        console.log("oi");
         alert(JSON.stringify(data, null, 2));
     };
 
