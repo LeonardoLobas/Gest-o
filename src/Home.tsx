@@ -11,7 +11,7 @@ const Home = () => {
 
     return (
         <div className="flex-1 bg-[#E0E0E0] h-full p-8 grid grid-cols-[25%_75%] gap-4 ">
-            <div className="bg-black  text-amber-50 grid place-items-center rounded-2xl ">
+            <div className="bg-[#1A1A1A] text-amber-50 grid place-items-center rounded-2xl ">
                 <DayPicker
                     mode="single"
                     selected={selected}
@@ -24,8 +24,8 @@ const Home = () => {
                 />
             </div>
 
-            <div className="bg-black text-amber-50 grid grid-cols-3 place-items-center text-lg tracking-[0.1rem] font-bold rounded-2xl overflow-hidden">
-                <motion.div className="col-span-1  border-[#373739]  h-full place-items-center w-full bg-black ">
+            <div className=" text-amber-50 grid grid-cols-3 place-items-center text-lg tracking-[0.1rem] font-bold rounded-2xl overflow-hidden">
+                <motion.div className="col-span-1  border-[#373739]  h-full place-items-center w-full bg-[#1A1A1A] ">
                     <motion.h1 className="mt-2">Minha Agenda</motion.h1>
                     <AnimatePresence mode="popLayout" initial={false}>
                         {isVisible ? (
@@ -55,10 +55,10 @@ const Home = () => {
                         </div>
                     </AnimatePresence>
                 </motion.div>
-                <motion.div className="col-span-1 border-l-4 border-r-4 border-[#373739] h-full place-items-center w-full bg-black relative">
+                <motion.div className="col-span-1 border-l-4 border-r-4 border-[#373739] h-full place-items-center w-full bg-[#1A1A1A] relative">
                     <motion.h1 className="mt-2">Vendas</motion.h1>
                 </motion.div>
-                <motion.div className="col-span-1  border-[#373739] h-full place-items-center w-full bg-black relative">
+                <motion.div className="col-span-1  border-[#373739] h-full place-items-center w-full bg-[#1A1A1A] relative">
                     <motion.h1 className="mt-2">Cadastros Clientes</motion.h1>
                 </motion.div>
             </div>

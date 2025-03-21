@@ -41,7 +41,7 @@ const Input = <T extends FieldValues>({
                 className="mt-1 p-2  bg-[#E0E0E0] text-[#000000] rounded-md w-full placeholder-[#B0B0B0]"
             />
             <div className="h-4">
-                <p className="text-red-500 text-sm mt-1">
+                <p className="text-red-700 text-sm mt-1">
                     {error ? String(error.message) : ""}
                 </p>
             </div>

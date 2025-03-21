@@ -3,7 +3,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import axios from "axios";
 import Input from "./ui/Input";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const validationCPF = (cpf: string) => {
     const regexCpf = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
@@ -107,10 +108,74 @@ const CadastroClientes = () => {
         alert(JSON.stringify(data, null, 2));
     };
 
+    const [isHovered, setIsHovered] = useState(false);
+
     return (
         <div className="grid grid-cols-2 gap-4 p-8 bg-[#FFFDF3] flex-1">
-            <div className="bg-[#1A1A1A] rounded-2xl">
-                AQUI E A PAGINA DE CADASTROS
+            <div className="bg-[#1A1A1A] grid grid-rows-[auto_1fr] rounded-2xl p-4 gap-y-2">
+                <h1 className="text-amber-50 font-bold text-lg text-center tracking-[0.1rem]">
+                    Clientes
+                </h1>
+                <div className="grid grid-cols-2 gap-2 place-items-center p-2">
+                    <motion.div
+                        className="bg-gray-700 w-[300px] text-amber-50 h-[150px] rounded-xl p-2"
+                        whileHover={{ scale: 1.05 }}
+                    >
+                        <h1 className="text-xl font-bold mb-2">
+                            Leonardo Lobas
+                        </h1>
+                        <p className="text-sm mb-1">
+                            Comprou:{" "}
+                            <span className="font-semibold">1500$$</span>
+                        </p>
+                        <p className="text-sm mb-1">
+                            Pagou: <span className="font-semibold">780$$</span>
+                        </p>
+                        <p className="text-sm">
+                            Esta com condicional:{" "}
+                            <span className="font-semibold">SIMMMMMMMMMM</span>
+                        </p>
+                    </motion.div>
+                    <motion.div
+                        className="bg-gray-700 w-[300px] text-amber-50 h-[150px] rounded-xl p-2"
+                        whileHover={{ scale: 1.05 }}
+                    >
+                        <h1 className="text-xl font-bold mb-2">
+                            Leonardo Lobas
+                        </h1>
+                        <p className="text-sm mb-1">
+                            Comprou:{" "}
+                            <span className="font-semibold">1500$$</span>
+                        </p>
+                        <p className="text-sm mb-1">
+                            Pagou: <span className="font-semibold">780$$</span>
+                        </p>
+                        <p className="text-sm">
+                            Esta com condicional:{" "}
+                            <span className="font-semibold">SIMMMMMMMMMM</span>
+                        </p>
+                    </motion.div>
+                    <motion.div
+                        className="bg-gray-700 w-[300px] text-amber-50 h-[150px] rounded-xl p-2"
+                        whileHover={{ scale: 1.05 }}
+                    >
+                        <h1 className="text-xl font-bold mb-2">
+                            Leonardo Lobas
+                        </h1>
+                        <p className="text-sm mb-1">
+                            Comprou:{" "}
+                            <span className="font-semibold">1500$$</span>
+                        </p>
+                        <p className="text-sm mb-1">
+                            Pagou: <span className="font-semibold">780$$</span>
+                        </p>
+                        <p className="text-sm">
+                            Esta com condicional:{" "}
+                            <span className="font-semibold">SIMMMMMMMMMM</span>
+                        </p>
+                        M
+                    </motion.div>
+                </div>
             </div>
             <form
                 onSubmit={handleSubmit(submit, (errors) => console.log(errors))}
@@ -147,10 +212,17 @@ const CadastroClientes = () => {
                 ))}
 
                 <button
-                    className="bg-blue-500   w-40 h-10 rounded-md p-2 cursor-pointer text-white"
+                    className="relative bg-transparent font-bold text-lg p-2 cursor-pointer tracking-[0.1rem] text-white"
                     type="submit"
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
                 >
                     Cadastrar
+                    <span
+                        className={`absolute bottom-0 left-0 h-0.5 bg-amber-50 transition-all duration-300 ease-in-out ${
+                            isHovered ? "w-full" : "w-0"
+                        }`}
+                    ></span>
                 </button>
             </form>
         </div>

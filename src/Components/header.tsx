@@ -36,7 +36,7 @@ const Header = () => {
                                     {item.label}
                                 </Link>
                                 <span
-                                    className={`absolute bottom-0 left-0 h-0.5 bg-black transition-all duration-300 ease-in-out ${
+                                    className={`absolute bottom-0 left-0 h-0.5 bg-amber-50 transition-all duration-300 ease-in-out ${
                                         isActive
                                             ? "w-full"
                                             : "w-0 group-hover:w-full"
@@ -54,7 +54,7 @@ const Header = () => {
                         <input
                             type="search"
                             id="default-search"
-                            className="block w-60 p-3 pl-5 text-sm text-gray-900 border border-black rounded-lg bg-gray-100"
+                            className="block w-60 p-3 pl-5 text-sm text-gray-900 border border-black rounded-lg bg-gray-100 placeholder-[#B0B0B0]"
                             placeholder="Clientes..."
                             required
                         />
