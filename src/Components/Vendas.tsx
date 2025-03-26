@@ -5,11 +5,7 @@ import axios from "axios";
 import Input from "./ui/Input";
 import { useEffect, useState } from "react";
 import React from "react";
-
-const validationCPF = (cpf: string) => {
-    const regexCpf = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
-    return regexCpf.test(cpf);
-};
+import { motion } from "framer-motion";
 
 const validationNumber = (number: string) => {
     const regexNumber = /^\(\d{2}\) \d{4,5}-\d{4}$/;
@@ -24,9 +20,6 @@ const registrationScheme = z.object({
             validationNumber,
             "Telefone inválido, use o formato (XX) 9XXXX-XXXX"
         ),
-    cpf: z.string().refine(validationCPF, {
-        message: "CPF inválido. Use o formato 000.000.000-00",
-    }),
     cep: z.string().regex(/^\d{5}-\d{3}$/, {
         message: "O CEP deve estar no formato XXXXX-XXX",
     }),
@@ -69,7 +62,6 @@ const Vendas = () => {
     const inputs: { label: string; name: Path<FormData>; type: string }[] = [
         { label: "Nome", name: "nome", type: "text" },
         { label: "Telefone", name: "telefone", type: "text" },
-        { label: "CPF", name: "cpf", type: "text" },
         { label: "CEP", name: "cep", type: "text" },
     ];
 
@@ -108,76 +100,136 @@ const Vendas = () => {
         alert(JSON.stringify(data, null, 2));
     };
 
-    const [isHovered, setIsHovered] = useState(false);
+    const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
+    const handleExpand = (index: number) => {
+        setExpandedIndex(expandedIndex === index ? null : index);
+    };
 
     const [openForm, setOpenForm] = React.useState<boolean>(false);
 
     return (
         <>
-            <button
-                className="cursor-pointer"
-                onClick={() => setOpenForm(true)}
-            >
-                Cadastrar cliente
-            </button>
             {openForm && (
                 <>
-                    <form
-                        onSubmit={handleSubmit(submit, (errors) =>
-                            console.log(errors)
-                        )}
-                        className="bg-[#1A1A1A]  rounded-2xl place-items-center  grid grid-cols-2"
-                    >
-                        <button
-                            className="relative bg-transparent font-bold text-lg p-2 cursor-pointer tracking-[0.1rem] text-white"
-                            onClick={() => setOpenForm(false)}
+                    <div className="fixed inset-0 bg-background/70 flex items-center justify-center z-20">
+                        <form
+                            onSubmit={handleSubmit(submit, (errors) =>
+                                console.log(errors)
+                            )}
+                            className="bg-background-secondary rounded-2xl p-6 grid grid-cols-2 shadow-xl w-[500px] relative"
                         >
-                            X
-                        </button>
-                        {inputs.map((input) => (
-                            <Input
-                                key={input.name}
-                                label={input.label}
-                                name={input.name}
-                                type={input.type}
-                                placeholder={`Digite seu ${input.label.toLowerCase()}`}
-                                register={register}
-                                error={errors[input.name as keyof FormData]}
-                            />
-                        ))}
+                            {inputs.map((input) => (
+                                <Input
+                                    key={input.name}
+                                    label={input.label}
+                                    name={input.name}
+                                    type={input.type}
+                                    placeholder={`Digite seu ${input.label.toLowerCase()}`}
+                                    register={register}
+                                    error={errors[input.name as keyof FormData]}
+                                />
+                            ))}
 
-                        {enderecoInputs.map((input) => (
-                            <Input
-                                key={input.name}
-                                label={input.label}
-                                name={input.name}
-                                type={input.type}
-                                placeholder={`Digite ${input.label.toLowerCase()}`}
-                                register={register}
-                                error={
-                                    errors.endereco?.[
-                                        input.name.split(
-                                            "."
-                                        )[1] as keyof FormData["endereco"]
-                                    ]
-                                }
-                            />
-                        ))}
+                            {enderecoInputs.map((input) => (
+                                <Input
+                                    key={input.name}
+                                    label={input.label}
+                                    name={input.name}
+                                    type={input.type}
+                                    placeholder={`Digite ${input.label.toLowerCase()}`}
+                                    register={register}
+                                    error={
+                                        errors.endereco?.[
+                                            input.name.split(
+                                                "."
+                                            )[1] as keyof FormData["endereco"]
+                                        ]
+                                    }
+                                />
+                            ))}
 
-                        <button
-                            className="relative bg-transparent font-bold text-lg p-2 cursor-pointer tracking-[0.1rem] text-white"
-                            type="submit"
-                            onMouseEnter={() => setIsHovered(true)}
-                            onMouseLeave={() => setIsHovered(false)}
-                        >
-                            Cadastrar
-                            <span
-                                className={`absolute bottom-0 left-0 h-0.5 bg-amber-50 transition-all duration-300 ease-in-out ${isHovered ? "w-full" : "w-0"}`}
-                            ></span>
-                        </button>
-                    </form>
+                            <button
+                                className="relative bg-transparent  hover:text-details  font-bold text-lg p-2 cursor-pointer tracking-[0.1rem] text-white"
+                                type="submit"
+                            >
+                                Cadastrar
+                            </button>
+
+                            <button
+                                className="relative bg-transparent  hover:text-details  font-bold text-lg p-2 cursor-pointer tracking-[0.1rem] text-white"
+                                onClick={() => setOpenForm(false)}
+                            >
+                                Cancelar
+                            </button>
+                        </form>
+                    </div>
                 </>
             )}
+
+            <button
+                className="p-2 w-60 top-7 h-10 absolute right-86  hover:text-details   cursor-pointer  text-lg  text-text-main"
+                onClick={() => setOpenForm(true)}
+            >
+                Cadastrar cliente/vendas
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-details animate-pulse"></span>
+            </button>
+
+            <div className="grid grid-cols-1   bg-[#FFFDF3] flex-1">
+                <div className="bg-background-secondary grid p-4">
+                    <div className="grid grid-cols-2 gap-2 place-items-center p-2">
+                        {[1, 2, 3, 4].map((item, index) => (
+                            <motion.div
+                                key={index}
+                                className="bg-gradient-to-tr from-background  details w-[400px] h-[250px] shadow-md shadow-background place-items-center content-center text-text-main rounded-xl p-2 cursor-pointer"
+                                whileHover={{ scale: 1.05 }}
+                                onClick={() => handleExpand(index)}
+                            >
+                                <h1 className="text-2xl font-bold mb-2">
+                                    Leonardo Lobas
+                                </h1>
+                                <p className="text-xl mb-1">
+                                    Comprou:{" "}
+                                    <span className="font-semibold">
+                                        1500$$
+                                    </span>
+                                </p>
+                                <p className="text-sm mb-1">
+                                    Pagou:{" "}
+                                    <span className="font-semibold">780$$</span>
+                                </p>
+                                <p className="text-sm">
+                                    Esta com condicional:{" "}
+                                    <span className="font-semibold">
+                                        SIMMMMMMMMMM
+                                    </span>
+                                </p>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+                {expandedIndex !== null && (
+                    <div className="fixed inset-0 bg-background/70  flex items-center justify-center z-10">
+                        <div className="bg-white p-4 rounded-lg shadow-lg w-[500px]">
+                            <h2 className="text-lg font-bold">
+                                Informações Adicionais
+                            </h2>
+                            <p className="text-sm mt-2">
+                                Informações adicionais sobre o cliente...
+                            </p>
+                            <div className="flex justify-end mt-4">
+                                <motion.button
+                                    whileHover={{ scale: 1.05 }}
+                                    className="bg-details cursor-pointer text-text-main p-2 rounded"
+                                    onClick={() => setExpandedIndex(null)}
+                                >
+                                    Fechar
+                                </motion.button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
         </>
     );
 };

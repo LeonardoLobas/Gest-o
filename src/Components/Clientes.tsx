@@ -23,17 +23,9 @@ const Clientes = () => {
                                 Leonardo Lobas
                             </h1>
                             <p className="text-xl mb-1">
-                                Comprou:{" "}
-                                <span className="font-semibold">1500$$</span>
-                            </p>
-                            <p className="text-sm mb-1">
-                                Pagou:{" "}
-                                <span className="font-semibold">780$$</span>
-                            </p>
-                            <p className="text-sm">
-                                Esta com condicional:{" "}
+                                Telefone:{" "}
                                 <span className="font-semibold">
-                                    SIMMMMMMMMMM
+                                    (42)98849-0054
                                 </span>
                             </p>
                         </motion.div>
