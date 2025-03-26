@@ -150,7 +150,7 @@ const CadastroClientes = () => {
                 </div>
             </div>
             {expandedIndex !== null && (
-                <div className="fixed inset-0 bg-black/70  flex items-center justify-center z-10">
+                <div className="fixed inset-0 bg-background/70  flex items-center justify-center z-10">
                     <div className="bg-white p-4 rounded-lg shadow-lg w-[500px]">
                         <h2 className="text-lg font-bold">
                             Informações Adicionais
@@ -159,12 +159,13 @@ const CadastroClientes = () => {
                             Informações adicionais sobre o cliente...
                         </p>
                         <div className="flex justify-end mt-4">
-                            <button
-                                className="bg-details text-white p-2 rounded"
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                className="bg-details cursor-pointer text-text-main p-2 rounded"
                                 onClick={() => setExpandedIndex(null)}
                             >
                                 Fechar
-                            </button>
+                            </motion.button>
                         </div>
                     </div>
                 </div>
