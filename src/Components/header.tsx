@@ -8,7 +8,7 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
     { path: "/Home", label: "Home" },
-    { path: "/CadastroCliente", label: "Cadastro clientes" },
+    { path: "/CadastroCliente", label: "Clientes" },
     { path: "/Vendas", label: "Vendas" },
     { path: "/Despesas", label: "Despesas" },
 ];
@@ -17,13 +17,13 @@ const Header = () => {
     const location = useLocation();
     return (
         <motion.header
-            initial={{ y: -100, opacity: 1 }} // Começa fora da tela, acima
-            animate={{ y: 0, opacity: 1 }} // Desce suavemente
-            transition={{ duration: 1, ease: "easeOut" }} // Tempo da animação
-            className="flex h-24 w-full bg-[#1A1A1A]  px-8"
+            initial={{ y: -100, opacity: 1 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="flex h-24 w-full bg-background px-8"
         >
             <nav className="flex  w-[100%] items-center justify-center pl-36 ">
-                <ul className="flex gap-10 text-lg text-amber-50">
+                <ul className="flex gap-10 text-lg text-text-main">
                     {menuItems.map((item) => {
                         const isActive = location.pathname === item.path;
                         return (
@@ -36,7 +36,7 @@ const Header = () => {
                                     {item.label}
                                 </Link>
                                 <span
-                                    className={`absolute bottom-0 left-0 h-0.5 bg-amber-50 transition-all duration-300 ease-in-out ${
+                                    className={`absolute bottom-0 left-0 h-0.5 bg-details transition-all duration-300 ease-in-out ${
                                         isActive
                                             ? "w-full"
                                             : "w-0 group-hover:w-full"
@@ -60,7 +60,7 @@ const Header = () => {
                         />
                         <button
                             type="submit"
-                            className="absolute right-2 bottom-1 w-10 h-10 text-white flex items-center justify-center rounded cursor-pointer group"
+                            className="absolute right-2 bottom-1 w-10 h-10 text-text-main flex items-center justify-center rounded cursor-pointer group"
                         >
                             <svg
                                 className="w-4 h-4 text-gray-500 group-hover:text-black"

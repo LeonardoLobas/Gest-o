@@ -1,2 +1,11 @@
+/* global.css */
 @import "tailwindcss";
 
+@theme {
+  --color-background: #000000; 
+  --color-background-secondary: #27272a; 
+  --color-text-main: #ffffff; 
+  --color-text-secondary: #BFBFBF; 
+  --color-details: #D4AF37; 
+
+}
