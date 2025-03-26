@@ -124,7 +124,7 @@ const CadastroClientes = () => {
                     {[1, 2, 3, 4].map((item, index) => (
                         <motion.div
                             key={index}
-                            className="bg-details w-[400px] h-[250px] shadow-md shadow-background place-items-center content-center text-text-main rounded-xl p-2 cursor-pointer"
+                            className="bg-gradient-to-tr from-background  details w-[400px] h-[250px] shadow-md shadow-background place-items-center content-center text-text-main rounded-xl p-2 cursor-pointer"
                             whileHover={{ scale: 1.05 }}
                             onClick={() => handleExpand(index)}
                         >
